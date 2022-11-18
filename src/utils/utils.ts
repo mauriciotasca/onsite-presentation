@@ -1,9 +1,13 @@
 import {useQuery} from "@tanstack/react-query";
 
-export const useFirstMovie = () => {
+export const useMovieById = (episodeId: number) => {
     return useQuery(
-        ['fetch-first-movie'],
-        () => fetch('https://swapi.dev/api/films/1').then((res) => res.json()))
+        [`fetch-first-movie-${episodeId}`],
+        () => fetch(`https://swapi.dev/api/films/${episodeId}`).then((res) => res.json()), {
+            refetchOnReconnect:false,
+            refetchOnWindowFocus:false,
+            staleTime: 300000,
+        })
 }
 
 export function romanize(num: number) {
